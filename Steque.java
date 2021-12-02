@@ -109,7 +109,11 @@ public class Steque<Item> implements Iterable<Item> {
      */
     //time complexity:O(n), space complexity: O(n)
     public int size() {
-        
+        int n=0;
+        for(Item item:this){
+            n++;
+        }
+        return n;
     }
     
     /**
