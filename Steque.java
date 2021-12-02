@@ -86,7 +86,10 @@ public class Steque<Item> implements Iterable<Item> {
      */
     //time complexity:O(1), space complexity: O(n)
     public Item pop() {
-       
+        if(isEmpty()) throw new NoSuchElementException();
+        Item item = first.item;
+        first = first.next;
+        return item;
 
     }
     
