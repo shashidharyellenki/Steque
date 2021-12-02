@@ -30,13 +30,19 @@ import java.util.NoSuchElementException;
  *
  */
 public class Steque<Item> implements Iterable<Item> {
-
+    private Node first, last;
+    private class Node{
+        Item item;
+        Node next;
+    }
+    
 
     /**
      * constructs a steque object.
      */
     public Steque() {
-
+        first = last = null;
+        
     }
     
     
@@ -44,16 +50,28 @@ public class Steque<Item> implements Iterable<Item> {
      * inserts an item in the steque in queue fashion.
      * @param item Item to be inserted.
      */
+    // time complexity: O(1) ,space complexity: O(n)
     public void enqueue(Item item) {
-
+        if(item == null) throw new IllegalArgumentException();
+        Node oldlast = last;
+        last = new Node();
+        last.item = item;
+        last.next = null;
+        if(first == null) first=last;
+        else oldlast.next = last;
+        
     }
     
     
+
+
     /**
      * inserts an item in the steque in stack fashion.
      * @param item Item to be inserted.
      */
+    //time complexity:O(1), space complexity: O(n)
     public void push(Item item) {
+       
 
     }
     
@@ -61,7 +79,9 @@ public class Steque<Item> implements Iterable<Item> {
      * pops a least recent item in steque.
      * @return Item object from steque.
      */
+    //time complexity:O(1), space complexity: O(n)
     public Item pop() {
+       
 
     }
     
@@ -69,7 +89,9 @@ public class Steque<Item> implements Iterable<Item> {
      * checks to see if steque is empty.
      * @return true if steque is empty, false otherwise.
      */
+    //time complexity:O(1), space complexity: O(1)
     public boolean isEmpty() {
+       
 
     }
     
@@ -77,8 +99,9 @@ public class Steque<Item> implements Iterable<Item> {
      * return the number of elements currently in the steque.
      * @return size as integer.
      */
+    //time complexity:O(n), space complexity: O(n)
     public int size() {
-
+        
     }
     
     /**
@@ -86,7 +109,10 @@ public class Steque<Item> implements Iterable<Item> {
      * stored in steque.
      * 
      */
+    //time complexity:O(1), space complexity: O(1)
     public Iterator<Item> iterator() {
-
+      
     }
-}
+    
+    }
+
