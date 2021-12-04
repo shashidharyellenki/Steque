@@ -30,22 +30,42 @@ import java.util.NoSuchElementException;
  *
  */
 public class Steque<Item> implements Iterable<Item> {
+    private Item[] stack;
+    private int size;
+    private int rear;
+    private int last;
+    private static int capacity = 10;
 
 
     /**
      * constructs a steque object.
      */
     public Steque() {
-
+        stack = (Item[]) new Object[capacity];
+        size = 0;
+        rear = 0;
     }
-    
+    private void resize() {
+		int newCapacity = 2*stack.length;
+		Item[] newstack = (Item[]) new Object[newCapacity];
+		for(int i=0; i<stack.length; i++) {
+			newstack[i] = stack[i];
+		}
+		stack = newstack;
+    }
     
     /**
      * inserts an item in the steque in queue fashion.
      * @param item Item to be inserted.
+     * 
      */
+     // time complexity: O(n) space complexity: O(n)
     public void enqueue(Item item) {
-
+        if (item == null) throw new IllegalArgumentException();
+        if(size >= stack.length) resize();
+        for(int i=stack.length-1; i > 0;i--) stack[i] = stack[i-1];
+        stack[0] = item;
+        size++;
     }
     
     
@@ -53,32 +73,43 @@ public class Steque<Item> implements Iterable<Item> {
      * inserts an item in the steque in stack fashion.
      * @param item Item to be inserted.
      */
+      //time complexity: O(1) space complexity: O(n)
     public void push(Item item) {
-
+        if(item==null) throw new IllegalArgumentException();
+        if(size >= stack.length) resize();
+        stack[size] = item;
+        size++;
     }
     
     /**
      * pops a least recent item in steque.
      * @return Item object from steque.
      */
+     //time complexity: O(1), space complexity: O(1
     public Item pop() {
-
+        if(isEmpty()) throw new NoSuchElementException();
+        Item item = stack[size-1];
+        stack[size-1] = null;
+        size--;
+        return item;
     }
     
     /**
      * checks to see if steque is empty.
      * @return true if steque is empty, false otherwise.
      */
+    //time complexity: O(1), space complexity: 0
     public boolean isEmpty() {
-
+        return size==0;
     }
     
     /**
      * return the number of elements currently in the steque.
      * @return size as integer.
      */
+     //time complexity: O(1), space complexity: 0
     public int size() {
-
+        return size;
     }
     
     /**
@@ -86,7 +117,49 @@ public class Steque<Item> implements Iterable<Item> {
      * stored in steque.
      * 
      */
+     //time complexity: O(1), space complexity: 0
     public Iterator<Item> iterator() {
+        return new ArrayIterator();
+    }
+    public class ArrayIterator implements Iterator<Item> {
+        public int i = size-1;
 
+     
+        public boolean hasNext() {
+            return i >= 0;
+        }
+
+      
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+        
+        public Item next() {
+            if(!hasNext()) throw new NoSuchElementException();
+            Item item = stack[i];
+            i--;
+            return item;
     }
 }
+    public static void main(String[] args){
+        Steque<Integer> head_ache = new Steque<Integer>();
+        head_ache.enqueue(14);
+        head_ache.enqueue(17);
+        head_ache.enqueue(20);
+        head_ache.push(5);
+        head_ache.push(10);
+        head_ache.push(15);
+        head_ache.enqueue(25);
+        System.out.println("empty:"+head_ache.isEmpty());
+        System.out.println("size:"+head_ache.size());
+        Iterator<Integer> nethinopi = head_ache.iterator();
+        System.out.println("steque elements");
+        while(nethinopi.hasNext())
+        System.out.println(nethinopi.next());
+        System.out.println("popped elements");
+       while(!head_ache.isEmpty()){
+           System.out.println(head_ache.pop());
+       }
+    }}
+
