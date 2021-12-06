@@ -107,7 +107,7 @@ public class Steque<Item> implements Iterable<Item> {
      * return the number of elements currently in the steque.
      * @return size as integer.
      */
-    //time complexity:O(n), space complexity: O(n)
+    //time complexity:O(n), space complexity: O(1)
     public int size() {
         int n=0;
         for(Item item:this){
